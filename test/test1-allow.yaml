@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-fluidos-consumer-egress-consumer-1eb36fa4b97320fd58d9726a98f4e84b9a1b13f9e30e5c61b79810bb6220cf1ec5cd05
+  namespace: default-fluidos-consumer-1eb36f
+spec:
+  policyTypes:
+  - Egress
+  podSelector: {}
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 10.98.0.0/16
+    - ipBlock:
+        cidr: 10.99.0.0/16

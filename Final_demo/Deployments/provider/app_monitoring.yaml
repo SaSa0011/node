@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-monitoring
+  namespace: internal-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-monitoring
+  template:
+    metadata:
+      labels:
+        app: app-monitoring
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["/bin/sh", "-c", "while true; do echo hello; sleep 10; done"]
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "16Mi"
+            cpu: "10m"
+          limits:
+            memory: "32Mi"
+            cpu: "20m"

@@ -14,7 +14,8 @@ provider_controlplane_ip=$(docker inspect -f '{{range .NetworkSettings.Networks}
 helm repo add fluidos https://fluidos-project.github.io/node/
 
 export KUBECONFIG=$PWD/consumer/config
-
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.2/manifests/tigera-operator.yaml
+kubectl create -f ./custom-resources.yaml
 kubectl apply -f ../../deployments/node/crds
 kubectl apply -f "$PWD/metrics-server.yaml"
 
@@ -30,8 +31,10 @@ liqoctl install kind --cluster-name fluidos-consumer \
   --set controllerManager.config.resourcePluginAddress=node-rear-controller-grpc.fluidos:2710 \
   --set controllerManager.config.enableResourceEnforcement=true
 
-export KUBECONFIG=$PWD/provider/config
 
+export KUBECONFIG=$PWD/provider/config
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.2/manifests/tigera-operator.yaml
+kubectl create -f ./custom-resources.yaml
 kubectl apply -f ../../deployments/node/crds
 kubectl apply -f "$PWD/metrics-server.yaml"
 
@@ -46,5 +49,10 @@ helm install node fluidos/node -n fluidos \
 liqoctl install kind --cluster-name fluidos-provider \
   --set controllerManager.config.resourcePluginAddress=node-rear-controller-grpc.fluidos:2710 \
   --set controllerManager.config.enableResourceEnforcement=true
+
+
+
+
+
 
 

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-catalogue
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product-catalogue
+  template:
+    metadata:
+      labels:
+        app: product-catalogue
+    spec:
+      containers:
+      - name: product-catalogue
+        image: nginx
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"

@@ -1,0 +1,2 @@
+1) ho applicato nel file setup.sh le righe per applicare e creare le risorse di Calico
+2) ho modificato i file kind sia del provider che del consumer , mettendo a false il campo relativo all' utilizzo della CNI di default
